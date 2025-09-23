@@ -1,22 +1,195 @@
+---
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonical?: string;
+}
+
+const {
+  title = "FionExim — Premium Quartz Manufacturer & Exporter",
+  description = "Premium quartz surfaces for kitchens, bathrooms, flooring, and wall cladding — engineered for durability and timeless design.",
+  canonical,
+} = Astro.props;
+---
+
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {canonical && <link rel="canonical" href={canonical} />}
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/images/favicon.ico" />
+
+    <!-- ========== CSS from template.html ========== -->
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <!-- Custom Scrollbar -->
+    <link rel="stylesheet" href="/css/jquery.mCustomScrollbar.min.css" />
+
+    <!-- Revolution Slider -->
+    <link rel="stylesheet" href="/rev/css/rs6.css" />
+    <link
+      rel="stylesheet"
+      href="/rev/fonts/font-awesome/css/font-awesome.css"
+    />
+    <link
+      rel="stylesheet"
+      href="/rev/fonts/pe-icon-7-stroke/css/pe-icon-7-stroke.css"
+    />
+    <link rel="stylesheet" href="/rev/fonts/pe-icon-7-stroke/css/helper.css" />
+
+    <!-- Owl Carousel -->
+    <link rel="stylesheet" href="/css/owl.carousel.min.css" />
+
+    <!-- Slick Slider -->
+    <link rel="stylesheet" href="/css/slick.css" />
+
+    <!-- Animations -->
+    <link rel="stylesheet" href="/css/animations.min.css" />
+
+    <!-- Icon Packs -->
+    <link rel="stylesheet" href="/fonts/font-awesome/css/all.min.css" />
+    <link rel="stylesheet" href="/css/ionicons.min.css" />
+    <link rel="stylesheet" href="/fonts/themify-icons/themify-icons.css" />
+    <link rel="stylesheet" href="/fonts/flaticon/flaticon.css" />
+
+    <!-- Magnific Popup -->
+    <link rel="stylesheet" href="/css/magnific-popup.min.css" />
+
+    <!-- Theme Styles -->
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/responsive.css" />
+    <!-- ========== /CSS ========== -->
+  </head>
+
+  <body>
+    <!-- Loading Overlay (global) -->
+    <div id="pq-loading" aria-label="Loading">
+      <div id="pq-loading-center">
+        <img
+          src="/images/Logo/logo.png"
+          alt="FionExim"
+          width="160"
+          height="54"
+        />
+      </div>
+    </div>
+
+    <!-- Page content -->
+    <Header />
+
+    <slot />
+
+    <Footer />
+
+    <!-- ========== JS from template.html (order preserved) ========== -->
+    <!-- Core -->
+    <script is:inline src="/js/jquery.min.js"></script>
+    <script is:inline src="/js/bootstrap.min.js"></script>
+
+    <!-- Plugins -->
+    <script is:inline src="/js/owl.carousel.min.js"></script>
+    <script is:inline src="/js/progressbar.js"></script>
+    <script is:inline src="/js/isotope.pkgd.min.js"></script>
+    <script is:inline src="/js/jquery.countTo.min.js"></script>
+    <script is:inline src="/js/wow.min.js"></script>
+    <script is:inline src="/js/jquery.magnific-popup.min.js"></script>
+
+    <!-- Revolution Slider -->
+    <script is:inline src="/rev/js/rbtools.min.js"></script>
+    <script is:inline src="/rev/js/rs6.min.js"></script>
+    <script is:inline>
+      (function () {
+        // only if GSAP is present
+        if (!window.gsap) return;
+        var _set = gsap.set,
+          _to = gsap.to,
+          _from = gsap.from,
+          _fromTo = gsap.fromTo;
+
+        function normalize(vars) {
+          if (
+            vars &&
+            typeof vars === "object" &&
+            "-webkit-backdrop-filter" in vars
+          ) {
+            // map vendor prop to standard prop GSAP understands
+            vars.backdropFilter = vars["-webkit-backdrop-filter"];
+            delete vars["-webkit-backdrop-filter"];
+          }
+          return vars;
+        }
+
+        gsap.set = function (t, v) {
+          return _set(t, normalize(v));
+        };
+        gsap.to = function (t, v) {
+          return _to(t, normalize(v));
+        };
+        gsap.from = function (t, v) {
+          return _from(t, normalize(v));
+        };
+        gsap.fromTo = function (t, f, v) {
+          return _fromTo(t, normalize(f), normalize(v));
+        };
+      })();
+    </script>
+    <script is:inline src="/js/rev-custom.js"></script>
+
+    <!-- Slick -->
+    <script is:inline src="/js/slick.js"></script>
+
+    <!-- Theme Custom -->
+    <script is:inline src="/js/custom.js"></script>
+
+    <script is:inline>
+      (function () {
+        // Hide loading overlay on window load (after assets)
+        window.addEventListener("load", function () {
+          var el = document.getElementById("pq-loading");
+          if (el) el.classList.add("hidden");
+        });
+
+        // Back-to-top visibility + smooth scroll
+        var btt = document.getElementById("back-to-top");
+        var anchor = (btt && btt.querySelector("a.top")) || null;
+
+        function onScroll() {
+          if (!btt) return;
+          if (window.scrollY > 300) btt.classList.add("active");
+          else btt.classList.remove("active");
+        }
+
+        window.addEventListener("scroll", onScroll, { passive: true });
+        onScroll();
+
+        if (anchor) {
+          anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          });
+        }
+      })();
+    </script>
+    <!-- ========== /JS ========== -->
+  </body>
 </html>
 
 <style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
+  html,
+  body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+  }
 </style>
