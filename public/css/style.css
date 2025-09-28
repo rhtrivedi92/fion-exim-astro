@@ -58,7 +58,7 @@ Moz Selection
 ++++++++++++++++++++++++++++++++++++++++*/
 :root {
   --primary-color: #f79320;
-  --dark-color: #30373f;
+  --dark-color: #1e242b;
   --secondary-color: #616161;
   --grey-color: #f6f4f5;
   --white-color: #ffffff;
@@ -3410,7 +3410,7 @@ Section Title
   font-size: 48px;
   line-height: 56px;
   z-index: 9;
-  color: var(--dark-color);
+  color: var(--white-color);
   padding: 0;
   margin: 0 0;
   position: relative;
